@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <title>Note Taker</title>
+        <meta name="description" content="Simple note taking app using indexedDB.">
+        <meta name="author" content="Floyd Hightower">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- STYLESHEETS -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.6/jquery.jgrowl.min.css">
+        <link rel="stylesheet" href="./styles/note-taker.css">
+
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        <!-- Place your content here -->
+        <div id="noteTaker" class="container-fluid">
+          <div class="page-header">
+            <h1>Note Taker</h1>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-2 sidebar" id="note-list">
+              <ul>
+                <li v-for="note in notes"><a href="#" v-on:click="openNote(note.id, note.title, note.body)">{{ note.title }}</a> &nbsp;<button v-on:click="deleteNote(note.id, note.title)" tabindex="-1">x</button></li>
+              </ul>
+            </div>
+
+            <div class="col-sm-11 col-md-10">
+              <div class="input-group input-group-lg col-sm-6 col-md-9">
+                <input type="text" class="form-control" id="note-title" placeholder="What's on your mind?" aria-describedby="Enter a note title." v-model="noteTitle">
+              </div>
+
+              <br/>
+
+              <div class="input-group col-sm-9 col-md-11">
+                <textarea class="form-control" id="note-body" rows="10" placeholder="Please explain..." v-model="noteBody"></textarea>
+              </div>
+
+              <br/>
+
+              <button type="button" class="btn btn-default btn-md btn-primary" id="save" v-on:click="addNote">
+                  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> &nbsp SAVE NEW
+              </button>
+
+              <button type="button" class="btn btn-default btn-md btn-success" id="update" v-if="editingNote" v-on:click="updateNote">
+                  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> &nbsp UPDATE EXISTING
+              </button>
+
+              <button type="button" class="btn btn-default btn-md btn-danger" id="update" v-if="editingNote" v-on:click="deleteNote('', '')">
+                  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> &nbsp DELETE
+              </button>
+
+              <br/><br/><br/>
+
+              <button type="button" class="btn btn-default btn-md btn-danger" id="delete" v-on:click="deleteDB" v-if="notes.length > 0" tabindex="-1">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete ALL Notes
+              </button>
+            </div>
+          </div> <!-- end row -->
+        </div> <!-- end fluid container -->
+
+        <!-- SCRIPTS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.6/jquery.jgrowl.min.js"></script>
+        <script src="index.js"></script>
+
+        <script type="text/javascript">
+          $.jGrowl.defaults.closer = false;
+        </script>
+    </body>
+</html>
