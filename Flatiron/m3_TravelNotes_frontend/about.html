@@ -1,0 +1,37 @@
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 id="about" name="about" type="hidden">Author</h1>
+       <ul id="name">
+              Who am I?
+       </ul>
+
+<h2 id="myNotes" type="hidden">My Notes</h2>
+       <ul id="noteList">
+
+       </ul>
+
+<p>“I enjoy meeting new people and finding ways to help them have an uplifting experience. I have had a variety of customer service opportunities, through which I was able to have fewer returned products and increased repeat customers, when compared with co-workers. I am dedicated, outgoing, and a team player. Who could I speak with in your customer service department about your organization’s customer service needs?”</p>
+
+
+<button type="button" class="btn btn-default btn-md btn-danger" id="aboutMe" v-if="about" v-on:click="displayNote('', '')">
+        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> &nbsp My Notes
+       </button>
+
+</body>
+</html>
+
+<button onclick="goBack()">Go Back</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+<script defer src="src/about.js" charset="utf-8"></script>
